@@ -33,8 +33,8 @@ resource "google_cloud_run_v2_service" "app" {
       image = "us-docker.pkg.dev/cloudrun/container/hello"
       resources {
         limits = {
-          cpu    = "4"
-          memory = "8Gi"
+          cpu    = "1"
+          memory = "512Mi"
         }
       }
 
@@ -53,8 +53,8 @@ resource "google_cloud_run_v2_service" "app" {
     max_instance_request_concurrency = 40
 
     scaling {
-      min_instance_count = 1
-      max_instance_count = 10
+      min_instance_count = 0
+      max_instance_count = 2
     }
 
     session_affinity = true

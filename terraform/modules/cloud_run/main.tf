@@ -3,8 +3,8 @@ variable "region" {}
 variable "environment" {}
 variable "service_account_email" {}
 
-resource "google_cloud_run_v2_service" "clawdbot" {
-  name     = "clawdbot-${var.environment}"
+resource "google_cloud_run_v2_service" "adkbot" {
+  name     = "adkbot-${var.environment}"
   location = var.region
   project  = var.project
   ingress  = "INGRESS_TRAFFIC_ALL"
@@ -42,11 +42,11 @@ resource "google_cloud_run_v2_service" "clawdbot" {
 resource "google_cloud_run_v2_service_iam_member" "public" {
   project  = var.project
   location = var.region
-  name     = google_cloud_run_v2_service.clawdbot.name
+  name     = google_cloud_run_v2_service.adkbot.name
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
 
 output "service_url" {
-  value = google_cloud_run_v2_service.clawdbot.uri
+  value = google_cloud_run_v2_service.adkbot.uri
 }

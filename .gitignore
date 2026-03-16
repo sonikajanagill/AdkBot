@@ -65,3 +65,8 @@ cover/
 *.json
 credentials.json
 token.json
+
+# Local development
+.adk
+session.db
+.terraform

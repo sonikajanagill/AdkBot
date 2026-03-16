@@ -4,9 +4,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    telegram_token: str = ""
+    telegram_bot_token: str = ""
     gemini_api_key: str = ""
-    gcp_project_id: str = "secure-agent-demo"
+    gcp_project_id: str = "adk-bot-sj-2026"
+    gcp_location: str = "us-central1"
+    agent_engine_id: str = "1051835704084004864"
     environment: Literal["dev", "prod"] = "dev"
     
     model_config = SettingsConfigDict(
@@ -30,7 +32,7 @@ class Settings(BaseSettings):
                 return response.payload.data.decode("UTF-8")
                 
             try:
-                settings.telegram_token = get_secret("TELEGRAM_BOT_TOKEN")
+                settings.telegram_bot_token = get_secret("TELEGRAM_BOT_TOKEN")
                 settings.gemini_api_key = get_secret("GEMINI_API_KEY")
             except Exception as e:
                 import logging

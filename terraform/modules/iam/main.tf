@@ -1,8 +1,8 @@
 variable "project" {}
 
 resource "google_service_account" "agent_sa" {
-  account_id   = "clawdbot-runtime"
-  display_name = "ClawdBot Agent Runtime Service Account"
+  account_id   = "adkbot-runtime"
+  display_name = "AdkBot Agent Runtime Service Account"
   project      = var.project
 }
 

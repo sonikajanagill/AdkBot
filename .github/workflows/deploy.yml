@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_ID: secure-agent-demo
-  SERVICE_NAME: clawdbot
+  SERVICE_NAME: adkbot
   REGION: us-central1
   # These will be set up in Phase 6/7
   # WIF_PROVIDER: projects/123/locations/global/workloadIdentityPools/github/providers/my-repo

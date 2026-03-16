@@ -1,8 +1,8 @@
-# ClawdBot: The Secure Google ADK Assistant
+# AdkBot: The Secure Google ADK Assistant
 
 **"From Zero to Secure AI Assistant in a Weekend"**
 
-ClawdBot is a high-security, open-source alternative to typical AI agents, built entirely on **Google Agent Development Kit (ADK) 1.0** and Google Cloud side infrastructure.
+AdkBot is a high-security, open-source alternative to typical AI agents, built entirely on **Google Agent Development Kit (ADK) 1.0** and Google Cloud side infrastructure.
 
 This repository demonstrates how to build an agent that is not just powerful, but secure by default with **6 layers of native security.**
 

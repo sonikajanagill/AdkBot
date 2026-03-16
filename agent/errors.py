@@ -1,5 +1,5 @@
 class AgentError(Exception):
-    """Base class for all ClawdBot exceptions."""
+    """Base class for all AdkBot exceptions."""
     pass
 
 class ToolError(AgentError):
