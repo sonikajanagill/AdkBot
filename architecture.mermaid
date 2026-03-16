@@ -1,0 +1,78 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': '#f0f0f0',
+    'primaryColor': '#d4e8f5',
+    'primaryTextColor': '#2c3e50',
+    'primaryBorderColor': '#a8c8e8',
+    'secondaryColor': '#fde8d4',
+    'tertiaryColor': '#d4f5e4',
+    'lineColor': '#7a9eb5',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#f0f0f0',
+    'clusterBkg': '#e8e8e8',
+    'clusterBorder': '#bbb'
+  }
+}}%%
+
+flowchart TD
+    User(["👤 User\n(Telegram)"])
+
+    subgraph Gateway["FastAPI Gateway  —  Cloud Run"]
+        GW["📨 FastAPI\nEndpoint"]
+        DLP["🔍 Cloud DLP\nPII Redaction"]
+    end
+
+    subgraph Orchestrator["ADK Root Orchestrator  —  Gemini 2.0 Flash"]
+        ROOT["🤖 Root Agent\n(Router)"]
+        HITL["✋ Human-in-the-Loop\nApproval Callback"]
+    end
+
+    subgraph Subagents["Specialised Subagents  —  Gemini 2.0 Flash"]
+        direction LR
+        GA["📧 Gmail\nAgent"]
+        CA["📅 Calendar\nAgent"]
+        DA["📁 Drive\nAgent"]
+        SA["🔎 Search\nAgent"]
+    end
+
+    subgraph Infra["GCP Infrastructure"]
+        direction LR
+        SM["🔐 Secret\nManager"]
+        VAI["🧠 Vertex AI\nMemory Bank"]
+        CT["📊 Cloud\nTrace"]
+        WIF["🔑 Workload Identity\nFederation"]
+    end
+
+    CICD["⚙️ GitHub Actions\n(CI/CD)"]
+
+    User -->|"Message"| GW
+    GW --> DLP
+    DLP -->|"Sanitised input"| ROOT
+    ROOT --> HITL
+    ROOT --> GA
+    ROOT --> CA
+    ROOT --> DA
+    ROOT --> SA
+    ROOT -->|"Response"| User
+
+    GW -.->|"Reads secrets"| SM
+    ROOT -.->|"Save / load memory"| VAI
+    GW -.->|"Trace spans"| CT
+    CA -.->|"Awaits approval"| HITL
+    WIF -.->|"Keyless deploy"| CICD
+    CICD -.->|"Deploy image"| Gateway
+
+    classDef gateway fill:#d4e8f5,stroke:#a8c8e8,color:#2c3e50
+    classDef orch fill:#fde8d4,stroke:#f0b98a,color:#2c3e50
+    classDef agent fill:#d4f5e4,stroke:#8ad4a8,color:#2c3e50
+    classDef infra fill:#f0e8f5,stroke:#c8a8e8,color:#2c3e50
+    classDef user fill:#fff8d4,stroke:#e8d88a,color:#2c3e50
+    classDef cicd fill:#f5e8d4,stroke:#e8c88a,color:#2c3e50
+
+    class GW,DLP gateway
+    class ROOT,HITL orch
+    class GA,CA,DA,SA agent
+    class SM,VAI,CT,WIF infra
+    class User user
+    class CICD cicd
